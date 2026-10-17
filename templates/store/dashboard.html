@@ -1,0 +1,650 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Cartzo</title>
+
+    {% load static %}
+
+    <style>
+        :root {
+            --orange: #ff6b00;
+            --orange-light: #fff0e5;
+            --black: #171717;
+            --muted: #6b7280;
+            --background: #f7f8fa;
+            --white: #ffffff;
+            --border: #eceef2;
+            --green: #16845b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--black);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .topbar {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 17px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .brand span {
+            color: var(--orange);
+        }
+
+        .top-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .top-links a {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .top-links a:hover {
+            color: var(--orange);
+        }
+
+        .dashboard {
+            max-width: 1450px;
+            margin: auto;
+            padding: 35px 5% 60px;
+        }
+
+        .welcome {
+            background: linear-gradient(115deg, #171717 0%, #303030 65%, #ff6b00 150%);
+            border-radius: 24px;
+            padding: 36px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 14px 35px rgba(23, 23, 23, .12);
+        }
+
+        .welcome::after {
+            content: "C";
+            position: absolute;
+            right: 30px;
+            top: -65px;
+            font-size: 260px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, .055);
+            pointer-events: none;
+        }
+
+        .welcome-label {
+            display: inline-block;
+            padding: 8px 13px;
+            border-radius: 30px;
+            background: rgba(255, 107, 0, .2);
+            color: #ffb27d;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .welcome h1 {
+            margin: 20px 0 10px;
+            font-size: clamp(28px, 4vw, 43px);
+            line-height: 1.15;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .welcome h1 span {
+            color: #ff8b38;
+        }
+
+        .welcome p {
+            color: #ededed;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 24px;
+        }
+
+        .primary-button {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            font-weight: 800;
+            transition: .25s;
+        }
+
+        .primary-button:hover {
+            background: #e65f00;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, .25);
+        }
+
+        .section-heading {
+            margin: 36px 0 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 23px;
+            font-weight: 900;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 7px 0 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 23px;
+            transition: transform .25s, box-shadow .25s;
+            min-width: 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, .07);
+        }
+
+        .stat-icon {
+            width: 47px;
+            height: 47px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: var(--orange-light);
+            color: var(--orange);
+            font-size: 23px;
+            margin-bottom: 19px;
+        }
+
+        .stat-card h3 {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0 0 9px;
+        }
+
+        .stat-number {
+            font-size: 29px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .stat-caption {
+            margin-top: 8px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(260px, .8fr);
+            gap: 22px;
+            margin-top: 28px;
+        }
+
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            min-width: 0;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .panel-heading h2 {
+            margin: 0;
+            font-size: 19px;
+            font-weight: 900;
+        }
+
+        .view-link {
+            color: var(--orange);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .product-card {
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 17px;
+            transition: .25s;
+            min-width: 0;
+        }
+
+        .product-card:hover {
+            border-color: #ffc49b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .05);
+        }
+
+        .product-image {
+            height: 135px;
+            background: #f8f8f8;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 14px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .product-image .placeholder {
+            font-size: 43px;
+        }
+
+        .product-name {
+            font-weight: 800;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .product-price {
+            color: var(--orange);
+            font-size: 17px;
+            font-weight: 900;
+            margin-top: 9px;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 25px 10px;
+            color: var(--muted);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .quick-actions {
+            display: grid;
+            gap: 13px;
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 15px;
+            transition: .2s;
+        }
+
+        .action:hover {
+            border-color: #ffc49b;
+            background: #fffaf6;
+            transform: translateX(3px);
+        }
+
+        .action-icon {
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            background: var(--orange-light);
+            border-radius: 12px;
+            font-size: 21px;
+        }
+
+        .action strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .action small {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .account-banner {
+            margin-top: 18px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fff4eb;
+        }
+
+        .account-banner strong {
+            font-size: 14px;
+        }
+
+        .account-banner p {
+            color: #6b5547;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .account-banner a {
+            color: #d95300;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 25px 15px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1000px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .topbar {
+                padding: 16px 5%;
+            }
+
+            .brand {
+                font-size: 27px;
+            }
+
+            .top-links {
+                gap: 15px;
+            }
+
+            .top-links a {
+                font-size: 12px;
+            }
+
+            .dashboard {
+                padding: 22px 4% 35px;
+            }
+
+            .welcome {
+                padding: 25px 21px;
+                border-radius: 18px;
+            }
+
+            .welcome::after {
+                right: -20px;
+                font-size: 170px;
+            }
+
+            .stats {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-number {
+                font-size: 25px;
+            }
+
+            .panel {
+                padding: 17px;
+            }
+
+            .product-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .product-card {
+                padding: 11px;
+            }
+
+            .product-image {
+                height: 105px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <a href="/" class="brand">Cart<span>zo</span></a>
+
+    <nav class="top-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/products/">Products</a>
+        <a href="/about/">About</a>
+        <a href="/dashboard/" style="color:#ff6b00">Dashboard</a>
+        {% if user.is_authenticated %}
+            <a href="/accounts/logout/">Logout</a>
+        {% else %}
+            <a href="/accounts/login/">Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome">
+        <span class="welcome-label">✦ YOUR CARTZO SPACE</span>
+
+        <h1>
+            Welcome{% if user.is_authenticated %}, {{ user.first_name|default:user.username|escape }}{% endif %}!<br>
+            Smart shopping. <span>Better living.</span>
+        </h1>
+
+        <p>
+            Discover your next favourite product, explore exciting categories,
+            and enjoy a smoother shopping experience with Cartzo.
+        </p>
+
+        <a href="/products/" class="primary-button">Explore Products &nbsp; →</a>
+    </section>
+
+    <div class="section-heading">
+        <div>
+            <h2>Your Overview</h2>
+            <p>A quick look at your Cartzo shopping space.</p>
+        </div>
+    </div>
+
+    <section class="stats">
+
+        <article class="stat-card">
+            <div class="stat-icon">▦</div>
+            <h3>Available Products</h3>
+            <div class="stat-number">{{ product_count }}</div>
+            <div class="stat-caption">Explore the collection</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">♡</div>
+            <h3>Wishlist</h3>
+            <div class="stat-number">♡</div>
+            <div class="stat-caption">Save your favourites</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">🛍</div>
+            <h3>Shopping</h3>
+            <div class="stat-number">Go</div>
+            <div class="stat-caption">Find your next favourite</div>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">✓</div>
+            <h3>Account</h3>
+            <div class="stat-number">
+                {% if user.is_authenticated %}Active{% else %}Guest{% endif %}
+            </div>
+            <div class="stat-caption">
+                {% if user.is_authenticated %}Welcome back!{% else %}Sign in for your account{% endif %}
+            </div>
+        </article>
+
+    </section>
+
+    <section class="main-grid">
+
+        <div class="panel">
+            <div class="panel-heading">
+                <h2>Discover Products</h2>
+                <a class="view-link" href="/products/">View all →</a>
+            </div>
+
+            <div class="product-list">
+                {% for product in latest_products %}
+                    <a class="product-card" href="/products/">
+                        <div class="product-image">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name|escape }}">
+                            {% elif product.static_image %}
+                                <img src="{% static product.static_image %}" alt="{{ product.name|escape }}">
+                            {% else %}
+                                <span class="placeholder">🛍️</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="product-name">{{ product.name }}</div>
+
+                        {% if product.price %}
+                            <div class="product-price">₹{{ product.price }}</div>
+                        {% endif %}
+                    </a>
+                {% empty %}
+                    <div class="empty-state">
+                        <div style="font-size:38px">🛍️</div>
+                        <strong>Your next favourite is waiting.</strong>
+                        <p>Browse the product collection to discover what's available.</p>
+                        <a class="view-link" href="/products/">Browse Products →</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <aside>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2>Quick Actions</h2>
+                </div>
+
+                <div class="quick-actions">
+                    <a class="action" href="/products/">
+                        <div class="action-icon">🛍️</div>
+                        <div>
+                            <strong>Browse Products</strong>
+                            <small>Explore the complete collection.</small>
+                        </div>
+                    </a>
+
+                    <a class="action" href="/wishlist/">
+                        <div class="action-icon">♡</div>
+                        <div>
+                            <strong>My Wishlist</strong>
+                            <small>Visit your saved favourites.</small>
+                        </div>
+                    </a>
+
+                    <a class="action" href="/cart/">
+                        <div class="action-icon">🛒</div>
+                        <div>
+                            <strong>My Shopping Cart</strong>
+                            <small>Continue your shopping journey.</small>
+                        </div>
+                    </a>
+
+                    <a class="action" href="/contact/">
+                        <div class="action-icon">✉</div>
+                        <div>
+                            <strong>Contact Support</strong>
+                            <small>We're here to help you.</small>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="account-banner">
+                    <strong>Make Cartzo yours.</strong>
+                    <p>
+                        {% if user.is_authenticated %}
+                            Thanks for being part of Cartzo. Happy shopping!
+                        {% else %}
+                            Sign in to access your account and enjoy your shopping experience.
+                        {% endif %}
+                    </p>
+                    {% if user.is_authenticated %}
+                        <a href="/">Continue shopping →</a>
+                    {% else %}
+                        <a href="/accounts/login/">Sign in →</a>
+                    {% endif %}
+                </div>
+            </div>
+        </aside>
+
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Cartzo · Smart shopping. Better living.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Shopping Cart | Cartzo{% endblock %}
+
+{% block content %}
+<h1>🛒 Your Shopping Cart</h1>
+
+<div class="card">
+    {% for item in cart_items %}
+        <div style="display:flex;gap:20px;align-items:center;border-bottom:1px solid #ddd;padding:18px 0">
+            {% if item.image %}
+                <img
+                    src="{{ item.image }}"
+                    alt="{{ item.name }}"
+                    style="width:90px;height:90px;object-fit:contain"
+                >
+            {% endif %}
+
+            <div style="flex:1">
+                <h3>{{ item.name }}</h3>
+                <p>Price: ₹{{ item.price|floatformat:0 }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Subtotal: ₹{{ item.subtotal|floatformat:0 }}</p>
+
+                <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                    {% csrf_token %}
+                    <button class="button" type="submit">Remove</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <h3>Your cart is empty.</h3>
+        <a class="button" href="/products/">Start Shopping</a>
+    {% endfor %}
+
+    {% if cart_items %}
+        <h2>Total: ₹{{ total|floatformat:0 }}</h2>
+        <a class="button" href="{% url 'orders:checkout' %}">Proceed to Checkout</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+

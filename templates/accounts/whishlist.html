@@ -1,0 +1,49 @@
+﻿{% load static %}
+{% extends "base.html" %}
+
+{% block title %}My Wishlist | Cartzo{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+    <h1>My Wishlist â™¡</h1>
+    <p>Your favorite products in one place.</p>
+
+    <div class="product-grid">
+        {% for item in wishlist_items %}
+        <article class="product-card">
+
+            {% if item.product.image %}
+                <img src="{% static 'images/' %}{{ item.product.static_image }}"
+                     alt="{{ item.product.name }}"
+                     class="product-image">
+            {% else %}
+                <div class="product-placeholder">â™¡</div>
+            {% endif %}
+
+            <div class="product-info">
+                <h3>{{ item.product.name }}</h3>
+                <p class="product-price">&#8377;{{ item.product.price|floatformat:0 }}</p>
+
+                <a href="/product/{{ item.product.id }}/"
+                   class="btn btn-primary btn-small">
+                    View Product
+                </a>
+            </div>
+
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <span>â™¡</span>
+            <h2>Your wishlist is empty.</h2>
+            <a href="/products/" class="btn btn-primary">
+                Discover Products
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
+
+

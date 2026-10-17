@@ -1,0 +1,28 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Order Details | Cartzo{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Order #{{ order.id }}</h1>
+    <p>Status: {{ order.get_status_display }}</p>
+    <p>Placed: {{ order.created_at }}</p>
+
+    <h2>Delivery information</h2>
+    <p>{{ order.full_name }}</p>
+    <p>{{ order.email }}</p>
+    <p>{{ order.address }}</p>
+    <p>{{ order.city }} — {{ order.postal_code }}</p>
+
+    <h2>Items</h2>
+    {% for item in order.items.all %}
+        <p>{{ item.product_name }} × {{ item.quantity }} — ₹{{ item.subtotal|floatformat:0 }}</p>
+    {% endfor %}
+
+    <h2>Total: ₹{{ order.total|floatformat:0 }}</h2>
+    <a class="button" href="{% url 'orders:order_list' %}">Back to Orders</a>
+</div>
+{% endblock %}
+
+
+

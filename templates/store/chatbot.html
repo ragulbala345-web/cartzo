@@ -1,0 +1,57 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Cartzo Assistant{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>💬 Cartzo Assistant</h1>
+
+    <div id="chat-messages" style="min-height:220px;padding:15px;background:#f5f3ff;border-radius:8px">
+        <p><strong>Assistant:</strong> Hello! Ask me about products, cart, or orders.</p>
+    </div>
+
+    <form id="chat-form">
+        <label for="chat-input">Your message</label>
+        <input id="chat-input" maxlength="500" required>
+        <button class="button" type="submit">Send</button>
+    </form>
+</div>
+
+<script>
+const form = document.getElementById("chat-form");
+const input = document.getElementById("chat-input");
+const messages = document.getElementById("chat-messages");
+
+form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const message = input.value.trim();
+    if (!message) return;
+
+    const userLine = document.createElement("p");
+    userLine.textContent = "You: " + message;
+    messages.appendChild(userLine);
+    input.value = "";
+
+    try {
+        const response = await fetch("/api/chat/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({message: message})
+        });
+
+        const data = await response.json();
+        const botLine = document.createElement("p");
+        botLine.textContent = "Assistant: " + (data.reply || data.error || "Sorry, try again.");
+        messages.appendChild(botLine);
+    } catch (error) {
+        const errorLine = document.createElement("p");
+        errorLine.textContent = "Assistant: The service is temporarily unavailable.";
+        messages.appendChild(errorLine);
+    }
+});
+</script>
+{% endblock %}
+
+
+

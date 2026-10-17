@@ -1,0 +1,111 @@
+﻿/* CARTZO PREMIUM BRAND AND TEXT FIX */
+
+:root {
+    --cartzo-orange: #ff6b00;
+    --cartzo-black: #171717;
+    --cartzo-white: #ffffff;
+}
+
+/* Remove faded text effects */
+body, p, span, label, li, small, a, button {
+    text-shadow: none !important;
+}
+
+/* Main tagline and hero headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #171717 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    -webkit-text-stroke: 0 !important;
+}
+
+/* Make the shopping tagline stand out */
+.hero h1,
+.hero-title,
+.hero-content h1,
+.banner h1,
+.banner-title,
+.home-hero h1,
+.home-hero .hero-title {
+    color: #171717 !important;
+    -webkit-text-fill-color: #171717 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    font-weight: 900 !important;
+    line-height: 1.12 !important;
+    letter-spacing: -1px;
+}
+
+/* Orange emphasis inside the tagline */
+.hero h1 span,
+.hero-title span,
+.hero-content h1 span,
+.banner h1 span,
+.home-hero h1 span {
+    color: #ff6b00 !important;
+    -webkit-text-fill-color: #ff6b00 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+/* Keep navigation readable */
+.navbar a,
+.nav-link,
+.navbar-nav a,
+header nav a {
+    color: #222222 !important;
+    -webkit-text-fill-color: #222222 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    font-weight: 700 !important;
+}
+
+/* Professional logo sizing when displayed as an image */
+.navbar-brand img,
+header .logo img,
+.site-logo img {
+    display: block;
+    width: 190px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Orange shopping buttons */
+.btn-primary,
+button[type="submit"] {
+    background: #ff6b00 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: none !important;
+    font-weight: 700 !important;
+}
+
+/* Keep product text clear */
+.card, .product-card, .product-item {
+    color: #222222;
+}
+
+.card h3, .card h4,
+.product-card h3, .product-card h4 {
+    color: #171717 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+/* Clear, readable supporting tagline text */
+.hero p,
+.hero-content p,
+.banner p,
+.home-hero p {
+    color: #444444 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* Keep the original light background */
+body {
+    background-color: #f7f7f7;
+}

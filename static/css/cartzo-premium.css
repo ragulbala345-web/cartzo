@@ -1,0 +1,324 @@
+﻿:root {
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --primary-light: #ccfbf1;
+    --navy: #102a43;
+    --coral: #fb7185;
+    --background: #f5f9fc;
+    --surface: #ffffff;
+    --text: #243b53;
+    --muted: #627d98;
+    --border: #e2e8f0;
+    --shadow: 0 12px 35px rgba(16, 42, 67, .08);
+    --radius: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.site-header,
+body > header {
+    background: linear-gradient(135deg, #102a43, #164e63);
+    color: white;
+    padding: 16px 5%;
+    box-shadow: 0 5px 25px rgba(16, 42, 67, .12);
+}
+
+.cartzo-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+    border: 0;
+    background: transparent;
+}
+
+.cartzo-logo img {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    font-size: 29px;
+    font-weight: 800;
+    color: white !important;
+    text-decoration: none;
+}
+
+body > header .brand {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 40px;
+    padding: 5px 16px 5px 8px;
+}
+
+body > header .brand::before {
+    content: "🛍";
+    display: inline-flex;
+    width: 43px;
+    height: 43px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0d9488, #2dd4bf);
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 22px;
+}
+
+nav,
+.navbar,
+.nav-links {
+    align-items: center;
+}
+
+body > nav {
+    background: white;
+    padding: 16px 5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 0 5px 22px rgba(16,42,67,.06);
+    border-bottom: 1px solid var(--border);
+}
+
+body > nav a,
+.nav-links a {
+    color: var(--navy);
+    font-weight: 650;
+    text-decoration: none;
+    padding: 9px 15px;
+    border-radius: 30px;
+}
+
+body > nav a:hover,
+.nav-links a:hover {
+    color: var(--primary-dark);
+    background: var(--primary-light);
+}
+
+.site-header .navbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.nav-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.search-form input {
+    width: 190px;
+    margin: 0;
+    background: white;
+}
+
+.search-form button,
+button,
+.button,
+input[type="submit"] {
+    background: linear-gradient(135deg, var(--primary), #14b8a6);
+    color: white;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(15,118,110,.16);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.search-form button:hover,
+button:hover,
+.button:hover,
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15,118,110,.23);
+}
+
+.nav-icon {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.container,
+main.container {
+    width: min(1200px, 92%);
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 10px;
+}
+
+.hero {
+    background: linear-gradient(120deg, #ccfbf1 0%, #f0fdfa 48%, #fff1f2 100%);
+    padding: clamp(30px, 6vw, 70px);
+    border-radius: 28px;
+    border: 1px solid rgba(15,118,110,.1);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.hero h1 {
+    color: var(--navy);
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 650px;
+}
+
+h1, h2, h3, h4 {
+    color: var(--navy);
+    line-height: 1.25;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 6px 22px rgba(16,42,67,.04);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 14px;
+}
+
+.grid .card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    background: #f8fafc;
+    padding: 10px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+input, textarea, select {
+    max-width: 100%;
+    padding: 13px 15px;
+    margin: 7px 0 15px;
+    border: 1px solid #d5e0ea;
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    font: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 3px solid rgba(20,184,166,.15);
+    border-color: var(--primary);
+}
+
+footer {
+    background: linear-gradient(135deg, #102a43, #163b50);
+    color: #e2e8f0;
+    padding: 38px 5%;
+    text-align: center;
+    margin-top: 65px;
+}
+
+footer a {
+    color: #99f6e4;
+    margin: 8px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+}
+
+@media (max-width: 700px) {
+    .cartzo-logo img {
+        width: 190px;
+    }
+
+    .container,
+    main.container {
+        width: 94%;
+        margin: 22px auto;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    body > nav {
+        gap: 5px;
+        padding: 12px 4%;
+    }
+
+    body > nav a {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .search-form input {
+        width: 150px;
+    }
+}
+
+@media (max-width: 380px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

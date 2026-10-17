@@ -1,0 +1,57 @@
+﻿{% load static %}
+{% extends "base.html" %}
+
+{% block title %}Search Products | Cartzo{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+    <h1>Search Results</h1>
+
+    <form method="get" action="/search/" class="filter-form">
+        <input type="search"
+               name="q"
+               value="{{ request.GET.q }}"
+               placeholder="What are you looking for?"
+               required>
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+    </form>
+
+    <div class="product-grid">
+
+        {% for product in products %}
+        <article class="product-card">
+            {% if product.image %}
+                <img src="{% static 'images/' %}{{ product.static_image }}"
+                     alt="{{ product.name }}"
+                     class="product-image">
+            {% else %}
+                <div class="product-placeholder">ðŸ›ï¸</div>
+            {% endif %}
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="product-price">&#8377;{{ product.price|floatformat:0 }}</p>
+
+                <a href="/product/{{ product.id }}/"
+                   class="btn btn-primary btn-small">
+                    View Product
+                </a>
+            </div>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <h2>No matching products found.</h2>
+            <p>Try a different product name.</p>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}
+
+

@@ -1,0 +1,57 @@
+﻿{% extends "base.html" %}
+
+{% block title %}My Orders | Cartzo{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+
+    <h1>My Orders ðŸ“¦</h1>
+    <p>View your previous purchases and order status.</p>
+
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>{{ order.created_at|date:"d M Y" }}</td>
+                    <td>&#8377;{{ order.total|floatformat:0 }}</td>
+                    <td>
+                        <span class="status-badge">
+                            {{ order.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="/orders/{{ order.id }}/">
+                            View Order
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">
+                        You have not placed any orders yet.
+                        <a href="/products/">Start shopping</a>.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+{% endblock %}
+
+

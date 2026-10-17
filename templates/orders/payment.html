@@ -1,0 +1,111 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+<div class="container" style="max-width:650px;margin:50px auto;padding:25px;text-align:center;">
+    <h1>Complete Your Payment</h1>
+
+    <p>Order number: <strong>#{{ order.pk }}</strong></p>
+    <h2>Amount: ₹{{ order.total|floatformat:2 }}</h2>
+
+    <p>Your order will be confirmed after your payment is verified.</p>
+
+    <button id="pay-button"
+            type="button"
+            style="padding:15px 30px;border:0;border-radius:8px;background:#6c3df4;color:white;font-size:17px;cursor:pointer;">
+        Pay Securely with Razorpay
+    </button>
+
+    <p id="payment-message" role="status" style="margin-top:20px;"></p>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+(function () {
+    const button = document.getElementById("pay-button");
+    const message = document.getElementById("payment-message");
+
+    button.addEventListener("click", function () {
+        if (typeof Razorpay === "undefined") {
+            message.textContent =
+                "Razorpay could not load. Check your internet connection.";
+            return;
+        }
+
+        button.disabled = true;
+        message.textContent = "Opening secure payment...";
+
+        const options = {
+            key: "{{ razorpay_key_id|escapejs }}",
+            amount: "{{ order.total|floatformat:2 }}".replace(".", "") ,
+            currency: "INR",
+            name: "Cartzo",
+            description: "Payment for order #{{ order.pk }}",
+            order_id: "{{ order.razorpay_order_id|escapejs }}",
+
+            handler: function (response) {
+                const form = document.createElement("form");
+                form.method = "POST";
+                form.action = "{% url 'orders:verify_payment' order.pk %}";
+
+                const csrf = document.querySelector(
+                    "input[name=csrfmiddlewaretoken]"
+                );
+
+                const fields = {
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                    csrfmiddlewaretoken: csrf ? csrf.value : ""
+                };
+
+                for (const name in fields) {
+                    const input = document.createElement("input");
+                    input.type = "hidden";
+                    input.name = name;
+                    input.value = fields[name];
+                    form.appendChild(input);
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+            },
+
+            modal: {
+                ondismiss: function () {
+                    button.disabled = false;
+                    message.textContent =
+                        "Payment window closed. Your order is still unpaid.";
+                }
+            },
+
+            theme: {
+                color: "#6c3df4"
+            }
+        };
+
+        try {
+            const razorpay = new Razorpay(options);
+
+            razorpay.on("payment.failed", function (response) {
+                button.disabled = false;
+                message.textContent =
+                    response.error.description ||
+                    "Payment failed. Please try again.";
+            });
+
+            razorpay.open();
+            message.textContent = "";
+        } catch (error) {
+            button.disabled = false;
+            message.textContent =
+                "Unable to open payment. Please try again.";
+        }
+    });
+})();
+</script>
+
+<form method="post" style="margin-top:20px;">
+    {% csrf_token %}
+</form>
+{% endblock %}

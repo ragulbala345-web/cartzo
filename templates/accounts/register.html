@@ -1,0 +1,394 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+
+<style>
+/* CARTZO REGISTRATION PAGE */
+
+.register-page,
+.register-page * {
+    box-sizing: border-box;
+}
+
+.register-page {
+    min-height: 85vh;
+    padding: 45px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eef2ff, #f0fdfa, #fdf2f8);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.register-container {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(31, 41, 55, 0.13);
+}
+
+/* LEFT WELCOME PANEL */
+
+.register-welcome {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 45px;
+    color: #ffffff;
+    background: linear-gradient(145deg, #0f766e, #115e59, #164e63);
+}
+
+.register-brand {
+    position: absolute;
+    top: 35px;
+    left: 40px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.register-brand span {
+    color: #99f6e4;
+}
+
+.register-welcome h2 {
+    margin: 30px 0 18px;
+    color: #ffffff;
+    font-size: 36px;
+    line-height: 1.25;
+}
+
+.register-welcome > p {
+    color: #d1fae5;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.register-benefits {
+    margin-top: 25px;
+}
+
+.register-benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    color: #f0fdfa;
+    font-size: 15px;
+}
+
+.register-benefit-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* RIGHT REGISTRATION FORM */
+
+.register-form-area {
+    padding: 45px 40px;
+}
+
+.register-heading {
+    margin-bottom: 28px;
+}
+
+.register-heading h1 {
+    margin: 0 0 10px;
+    color: #111827;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.register-heading p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.register-form {
+    width: 100%;
+}
+
+.register-form p {
+    margin: 0 0 18px;
+}
+
+.register-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.register-form input:not([type="checkbox"]),
+.register-form select {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    outline: none;
+    background: #f9fafb;
+    color: #111827;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+    border-color: #0f766e;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+
+.register-form ul {
+    padding-left: 20px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.register-form .helptext {
+    display: block;
+    margin-top: 6px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.register-form .errorlist {
+    margin: 6px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 12px;
+}
+
+.register-errors {
+    margin-bottom: 18px;
+    padding: 12px 15px;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.register-submit {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0f766e, #0d9488);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 7px 18px rgba(15, 118, 110, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.register-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 118, 110, 0.3);
+}
+
+.register-login {
+    margin-top: 24px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.register-login a {
+    color: #0f766e;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.register-login a:hover {
+    text-decoration: underline;
+}
+
+.register-security {
+    margin-top: 20px;
+    color: #9ca3af;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* TABLETS */
+
+@media (max-width: 800px) {
+    .register-container {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+    }
+
+    .register-welcome {
+        min-height: 300px;
+        padding: 85px 30px 30px;
+    }
+
+    .register-brand {
+        top: 25px;
+        left: 30px;
+    }
+
+    .register-welcome h2 {
+        margin-top: 10px;
+        font-size: 29px;
+    }
+
+    .register-benefits {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
+    .register-benefit {
+        font-size: 13px;
+    }
+
+    .register-form-area {
+        padding: 35px 30px;
+    }
+}
+
+/* MOBILE PHONES */
+
+@media (max-width: 480px) {
+    .register-page {
+        padding: 20px 12px;
+    }
+
+    .register-container {
+        border-radius: 16px;
+    }
+
+    .register-welcome {
+        min-height: auto;
+        padding: 75px 24px 25px;
+    }
+
+    .register-welcome h2 {
+        font-size: 26px;
+    }
+
+    .register-welcome > p {
+        font-size: 14px;
+    }
+
+    .register-benefits {
+        grid-template-columns: 1fr;
+        margin-top: 12px;
+    }
+
+    .register-benefit {
+        margin: 8px 0;
+    }
+
+    .register-form-area {
+        padding: 28px 22px;
+    }
+
+    .register-heading h1 {
+        font-size: 26px;
+    }
+}
+</style>
+
+<section class="register-page">
+    <div class="register-container">
+
+        <div class="register-welcome">
+            <div class="register-brand">Cart<span>zo</span></div>
+
+            <h2>Start your shopping journey!</h2>
+
+            <p>
+                Create your Cartzo account and discover products
+                you will love, all in one place.
+            </p>
+
+            <div class="register-benefits">
+                <div class="register-benefit">
+                    <span class="register-benefit-icon">✓</span>
+                    <span>Easy and secure registration</span>
+                </div>
+
+                <div class="register-benefit">
+                    <span class="register-benefit-icon">🛍️</span>
+                    <span>Explore exciting products</span>
+                </div>
+
+                <div class="register-benefit">
+                    <span class="register-benefit-icon">♡</span>
+                    <span>Enjoy convenient shopping</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="register-form-area">
+            <div class="register-heading">
+                <h1>Create Account</h1>
+                <p>Fill in your details below to join Cartzo.</p>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="register-errors">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                <div class="register-errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <form method="post" class="register-form">
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <button type="submit" class="register-submit">
+                    Create My Account →
+                </button>
+            </form>
+
+            <div class="register-login">
+                Already have an account?
+                <a href="/login/">Sign in</a>
+            </div>
+
+            <div class="register-security">
+                🔒 Your account information is submitted securely.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

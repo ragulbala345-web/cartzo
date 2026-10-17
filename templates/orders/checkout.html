@@ -1,0 +1,80 @@
+﻿{% extends "store/base.html" %}
+
+{% block content %}
+<div class="container" style="max-width:850px;margin:40px auto;padding:24px;">
+    <h1>Secure Checkout</h1>
+    <p>Enter your delivery details and choose how you want to pay.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div style="display:grid;gap:16px;">
+            <label>
+                Full name
+                <input type="text" name="full_name" required autocomplete="name"
+                       style="display:block;width:100%;padding:12px;">
+            </label>
+
+            <label>
+                Email
+                <input type="email" name="email" required autocomplete="email"
+                       style="display:block;width:100%;padding:12px;">
+            </label>
+
+            <label>
+                Delivery address
+                <textarea name="address" required autocomplete="street-address"
+                          style="display:block;width:100%;padding:12px;"></textarea>
+            </label>
+
+            <label>
+                City
+                <input type="text" name="city" required autocomplete="address-level2"
+                       style="display:block;width:100%;padding:12px;">
+            </label>
+
+            <label>
+                Postal code
+                <input type="text" name="postal_code" required autocomplete="postal-code"
+                       style="display:block;width:100%;padding:12px;">
+            </label>
+        </div>
+
+        <h2 style="margin-top:28px;">Your items</h2>
+
+        {% for item in cart_items %}
+        <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid #ddd;">
+            <span>{{ item.product.name }} × {{ item.quantity }}</span>
+            <strong>₹{{ item.subtotal|floatformat:2 }}</strong>
+        </div>
+        {% endfor %}
+
+        <h2 style="text-align:right;margin-top:24px;">
+            Total: ₹{{ total|floatformat:2 }}
+        </h2>
+
+        <h2 style="margin-top:24px;">Choose Payment Method</h2>
+
+        <label style="display:flex;align-items:center;gap:12px;padding:16px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px;cursor:pointer;">
+            <input type="radio" name="payment_method" value="razorpay" checked required>
+            <span>
+                <strong>💳 Online Payment</strong><br>
+                <small>Pay securely using Razorpay</small>
+            </span>
+        </label>
+
+        <label style="display:flex;align-items:center;gap:12px;padding:16px;border:1px solid #ddd;border-radius:10px;margin-bottom:20px;cursor:pointer;">
+            <input type="radio" name="payment_method" value="cod" required>
+            <span>
+                <strong>💵 Cash on Delivery</strong><br>
+                <small>Pay when your order arrives</small>
+            </span>
+        </label>
+
+        <button type="submit"
+                style="width:100%;padding:15px;border:0;border-radius:8px;background:#ff6900;color:white;font-size:17px;font-weight:bold;cursor:pointer;">
+            Continue with Selected Payment
+        </button>
+    </form>
+</div>
+{% endblock %}

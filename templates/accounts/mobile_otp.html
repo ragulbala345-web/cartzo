@@ -1,0 +1,52 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Mobile OTP Verification | Cartzo{% endblock %}
+
+{% block content %}
+<div style="max-width:460px;margin:50px auto;padding:30px;border-radius:18px;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.1);">
+    <h1 style="text-align:center;color:#222;">Verify Your Mobile</h1>
+    <p style="text-align:center;color:#666;">Enter the 6-digit OTP to verify your mobile number.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style="padding:10px;border-radius:8px;background:#f3f4f6;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if dev_otp %}
+        <div style="padding:14px;margin:20px 0;background:#fff4cc;border-radius:10px;color:#704d00;">
+            <strong>Development testing only</strong><br>
+            Your test OTP is: <strong>{{ dev_otp }}</strong><br>
+            This code is displayed only for local testing. No SMS has been sent.
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="phone">Mobile number (with country code)</label>
+        <input id="phone" name="phone" type="tel" placeholder="+919876543210"
+               value="{{ phone|default:'' }}" required
+               style="box-sizing:border-box;width:100%;padding:13px;margin:10px 0 20px;border:1px solid #ddd;border-radius:8px;">
+
+        <button type="submit" name="action" value="send"
+                style="width:100%;padding:13px;background:#6c4cff;color:white;border:0;border-radius:8px;font-weight:bold;cursor:pointer;">
+            Generate Test OTP
+        </button>
+    </form>
+
+    <hr style="margin:25px 0;border:0;border-top:1px solid #eee;">
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="otp">Enter your 6-digit OTP</label>
+        <input id="otp" name="otp" type="text" inputmode="numeric"
+               pattern="[0-9]{6}" maxlength="6" placeholder="123456" required
+               style="box-sizing:border-box;width:100%;padding:13px;margin:10px 0 20px;border:1px solid #ddd;border-radius:8px;">
+
+        <button type="submit" name="action" value="verify"
+                style="width:100%;padding:13px;background:#16a34a;color:white;border:0;border-radius:8px;font-weight:bold;cursor:pointer;">
+            Verify OTP
+        </button>
+    </form>
+</div>
+{% endblock %}

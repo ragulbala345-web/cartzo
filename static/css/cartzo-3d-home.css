@@ -1,0 +1,132 @@
+﻿/* CARTZO — ORIGINAL ORANGE AND WHITE THEME */
+
+:root {
+    --cartzo-orange: #ff6b00;
+    --cartzo-dark: #171717;
+    --cartzo-white: #ffffff;
+    --cartzo-bg: #f7f7f7;
+}
+
+/* Page background and text */
+body {
+    background: var(--cartzo-bg) !important;
+    color: var(--cartzo-dark) !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #171717 !important;
+    font-weight: 800;
+    opacity: 1 !important;
+    -webkit-text-fill-color: #171717;
+}
+
+/* Paragraphs */
+p, label, li {
+    color: #333333;
+    opacity: 1;
+}
+
+/* Navigation */
+nav, .navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #eeeeee;
+}
+
+nav a, .navbar a, .navbar-brand {
+    color: #171717 !important;
+    font-weight: 600;
+}
+
+/* Cartzo brand */
+.navbar-brand {
+    color: #ff6b00 !important;
+    font-weight: 900 !important;
+}
+
+/* Product cards */
+.card, .product-card, .product-item {
+    background: #ffffff !important;
+    color: #171717 !important;
+    border: 1px solid #eeeeee;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover, .product-card:hover, .product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Product names */
+.card h3, .card h4, .product-title,
+.product-card h3, .product-card h4 {
+    color: #171717 !important;
+}
+
+/* Prices */
+.price, .product-price {
+    color: #ff6b00 !important;
+    font-weight: 800;
+}
+
+/* Buttons */
+.btn-primary, button[type="submit"],
+input[type="submit"] {
+    background: #ff6b00 !important;
+    color: #ffffff !important;
+    border: 1px solid #ff6b00 !important;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.btn-primary:hover, button[type="submit"]:hover,
+input[type="submit"]:hover {
+    background: #e65f00 !important;
+    border-color: #e65f00 !important;
+}
+
+/* Form fields */
+input, select, textarea {
+    background: #ffffff !important;
+    color: #171717 !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 8px;
+}
+
+input::placeholder, textarea::placeholder {
+    color: #777777 !important;
+    opacity: 1;
+}
+
+/* Secondary text */
+small, .text-muted {
+    color: #666666 !important;
+}
+
+/* Product images */
+.card img, .product-card img, .product-item img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Footer */
+footer {
+    background: #171717 !important;
+    color: #ffffff !important;
+}
+
+footer p, footer a, footer li {
+    color: #ffffff !important;
+}
+
+/* Links */
+a {
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #ff6b00;
+}

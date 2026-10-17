@@ -1,0 +1,65 @@
+﻿{% extends "store/base.html" %}
+{% load static %}
+ï»¿
+
+{% block title %}{{ product.name }} | Cartzo    
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'store:wishlist_add' product.id %}" style="margin-top:15px;">
+            {% csrf_token %}
+            <button class="button" type="submit">❤️ Add to Wishlist</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'accounts:login' %}">Log in</a> to add this product to your wishlist.</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    {% if product.image %}
+        <img
+            src="{% static 'images/' %}{{ product.static_image }}"
+            alt="{{ product.name }}"
+            style="max-width:100%;width:350px;object-fit:contain"
+        >
+    {% endif %}
+
+    <h1>{{ product.name }}</h1>
+    <p>Category: {{ product.category }}</p>
+    <p>{{ product.description }}</p>
+    <p class="price">&#8377;{{ product.price|floatformat:0 }}</p>
+    <p>Available stock: {{ product.stock }}</p>
+
+    {% if product.stock > 0 %}
+        <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <label for="quantity">Quantity</label>
+            <input
+                id="quantity"
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                max="{{ product.stock }}"
+                required
+            >
+            <button class="button" type="submit">Add to Cart</button>
+        </form>
+    {% else %}
+        <p>Currently unavailable.</p>
+    {% endif %}
+</div>
+    
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'store:wishlist_add' product.id %}" style="margin-top:15px;">
+            {% csrf_token %}
+            <button class="button" type="submit">❤️ Add to Wishlist</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'accounts:login' %}">Log in</a> to add this product to your wishlist.</p>
+    {% endif %}
+{% endblock %}
+
+
+
+
+

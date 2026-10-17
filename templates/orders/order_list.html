@@ -1,0 +1,35 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}My Orders | Cartzo{% endblock %}
+
+{% block content %}
+<h1>My Orders</h1>
+
+{% for order in orders %}
+    <div class="card" style="margin-bottom:20px">
+        <h2>Order #{{ order.id }}</h2>
+        <p>Date: {{ order.created_at }}</p>
+        <p>Status: {{ order.get_status_display }}</p>
+        <p>Total: ₹{{ order.total|floatformat:0 }}</p>
+
+        <a class="button" href="{% url 'orders:order_detail' order.id %}">
+            View Order
+        </a>
+
+        {% if order.status == "pending" %}
+            <form method="post" action="{% url 'orders:cancel_order' order.id %}" style="margin-top:15px">
+                {% csrf_token %}
+                <button class="button" type="submit">Cancel Order</button>
+            </form>
+        {% endif %}
+    </div>
+{% empty %}
+    <div class="card">
+        <h2>No orders yet</h2>
+        <a class="button" href="/products/">Start Shopping</a>
+    </div>
+{% endfor %}
+{% endblock %}
+
+
+

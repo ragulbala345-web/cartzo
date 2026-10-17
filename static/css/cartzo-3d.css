@@ -1,0 +1,272 @@
+﻿/* CARTZO 3D SHOPPING DESIGN */
+.cartzo-3d-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 30px;
+    padding: 55px 6%;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #d5fff5 0%, #f5f3ff 52%, #ffe4e9 100%);
+    box-shadow: 0 20px 50px rgba(24, 60, 90, .13);
+}
+
+.cartzo-3d-hero::before,
+.cartzo-3d-hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cartzo-3d-hero::before {
+    width: 250px;
+    height: 250px;
+    right: 10%;
+    top: -100px;
+    background: rgba(45, 212, 191, .22);
+}
+
+.cartzo-3d-hero::after {
+    width: 180px;
+    height: 180px;
+    left: 35%;
+    bottom: -100px;
+    background: rgba(251, 113, 133, .16);
+}
+
+.cartzo-hero-content,
+.cartzo-3d-art {
+    position: relative;
+    z-index: 1;
+}
+
+.cartzo-hero-content h1 {
+    color: #102a43;
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    margin: 12px 0 20px;
+}
+
+.cartzo-hero-content h1 span {
+    color: #0d9488;
+}
+
+.cartzo-hero-content p {
+    color: #52677c;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.cartzo-hero-badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: white;
+    color: #0f766e;
+    font-weight: 800;
+    box-shadow: 0 5px 20px #102a4310;
+}
+
+.cartzo-hero-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 15px 25px;
+    border-radius: 14px;
+    color: white !important;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    text-decoration: none;
+    font-weight: 800;
+    box-shadow: 0 10px 22px #0f766e35;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.cartzo-hero-button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 28px #0f766e40;
+}
+
+.cartzo-3d-art {
+    min-height: 310px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 900px;
+}
+
+.cartzo-3d-platform {
+    width: min(100%, 390px);
+    min-height: 280px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 45%;
+    background: radial-gradient(ellipse, #ffffffdc 0%, #b9f5e9a8 48%, transparent 72%);
+}
+
+.cartzo-shopping-bag {
+    width: 145px;
+    height: 160px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px 25px 35px 35px;
+    background: linear-gradient(145deg, #14b8a6, #0f766e);
+    box-shadow: 15px 22px 0 #0b5e5730, 0 30px 45px #0f766e35;
+    transform: rotate(-8deg);
+    animation: cartzoFloat 4s ease-in-out infinite;
+}
+
+.cartzo-shopping-bag::before {
+    content: "";
+    position: absolute;
+    width: 65px;
+    height: 45px;
+    top: -35px;
+    border: 10px solid #0f766e;
+    border-bottom: 0;
+    border-radius: 40px 40px 0 0;
+}
+
+.cartzo-shopping-bag span {
+    color: white;
+    font-size: 58px;
+    font-weight: 900;
+    text-shadow: 2px 5px 0 #064e3b50;
+}
+
+.cartzo-float-item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 78px;
+    height: 78px;
+    border-radius: 23px;
+    background: linear-gradient(145deg, #ffffff, #f1f5f9);
+    box-shadow: 0 15px 30px #102a4320, inset 0 2px 4px white;
+    font-size: 39px;
+    animation: cartzoFloat 4s ease-in-out infinite;
+}
+
+.cartzo-item-one {
+    top: 15px;
+    left: 12px;
+    transform: rotate(-12deg);
+}
+
+.cartzo-item-two {
+    right: 5px;
+    top: 35px;
+    animation-delay: -.8s;
+}
+
+.cartzo-item-three {
+    right: 35px;
+    bottom: 0;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #fb7185, #fda4af);
+    animation-delay: -1.5s;
+}
+
+.cartzo-item-four {
+    left: 15px;
+    bottom: 15px;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #c4b5fd, #8b5cf6);
+    animation-delay: -2s;
+}
+
+@keyframes cartzoFloat {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+}
+
+.cartzo-category-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin: 25px auto;
+}
+
+.cartzo-category-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 20px;
+    background: white;
+    color: #102a43;
+    text-decoration: none;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 7px 22px #102a4308;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.cartzo-category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px #102a4315;
+}
+
+.cartzo-category-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ccfbf1, #f0fdfa);
+    font-size: 30px;
+}
+
+.cartzo-category-card strong {
+    display: block;
+    font-size: 15px;
+}
+
+.cartzo-category-card small {
+    color: #627d98;
+}
+
+@media(max-width: 800px) {
+    .cartzo-3d-hero {
+        grid-template-columns: 1fr;
+        padding: 35px 24px;
+    }
+
+    .cartzo-3d-art {
+        min-height: 280px;
+    }
+
+    .cartzo-category-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .cartzo-category-card {
+        padding: 13px;
+        gap: 9px;
+    }
+
+    .cartzo-category-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 25px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .cartzo-shopping-bag,
+    .cartzo-float-item {
+        animation: none;
+    }
+}

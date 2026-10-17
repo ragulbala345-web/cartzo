@@ -1,0 +1,72 @@
+﻿{% extends "store/base.html" %}
+{% load static %}
+{% block title %}Cartzo | Online Shopping{% endblock %}
+{% block content %}
+<div class="cartzo-ai-search">
+  <div class="cartzo-ai-content">
+    <span class="cartzo-ai-label">✨ SMART SHOPPING ASSISTANT</span>
+    <h2>Find your perfect product with <span style="color:#c4b5fd">AI</span></h2>
+    <p>Describe what you need, your budget, or your favourite style.</p>
+    <form class="cartzo-ai-form" action="/ai-chat/" method="get">
+      <input type="search" name="q" placeholder="e.g. Best headphones under ₹2,000" aria-label="Describe the product you want">
+      <button type="submit">✨ AI Search</button>
+    </form>
+    <div class="cartzo-ai-examples">
+      <span>💻 Budget laptops</span>
+      <span>👟 Running shoes</span>
+      <span>🎁 Gift ideas</span>
+    </div>
+  </div>
+  <div class="cartzo-ai-decoration" aria-hidden="true">🛍️</div>
+</div>
+
+<section class="hero">
+<h1>Discover Something Amazing âœ¨</h1>
+<p>Shop electronics, fashion and everyday essentials at Cartzo.</p>
+<a class="button" href="/products/">Explore Products</a>
+</section>
+<h2>Featured Products</h2>
+<div class="grid products-grid">
+{% for product in products %}
+    <div class="card product-card">
+        {% if product.static_image %}
+            <a href="{% url 'store:product_detail' product.slug %}">
+                <img
+                    src="{% static 'images/' %}{{ product.static_image }}"
+                    alt="{{ product.name }}"
+                    class="product-image"
+                    loading="lazy"
+                >
+            </a>
+        {% elif product.image %}
+            <a href="{% url 'store:product_detail' product.slug %}">
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                    class="product-image"
+                    loading="lazy"
+                >
+            </a>
+        {% else %}
+            <div class="product-image-placeholder">Image unavailable</div>
+        {% endif %}
+
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.category }}</p>
+        <p class="price">&#8377;{{ product.price|floatformat:0 }}</p>
+
+        <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <button class="button" type="submit">Add to Cart</button>
+        </form>
+    </div>
+{% empty %}
+    <p>No products available yet.</p>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+

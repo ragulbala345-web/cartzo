@@ -1,0 +1,161 @@
+﻿{% extends "store/base.html" %}
+
+{% block title %}Login | Cartzo{% endblock %}
+
+{% block content %}
+
+<style>
+.cartzo-login-page {
+    min-height: 75vh;
+    padding: 45px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ecfdf5, #eff6ff, #f5f3ff);
+}
+
+.cartzo-login-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 38px;
+    border-radius: 22px;
+    background: white;
+    box-shadow: 0 18px 55px rgba(15, 23, 42, .12);
+}
+
+.cartzo-login-brand {
+    margin-bottom: 10px;
+    color: #0f766e;
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.cartzo-login-card h1 {
+    margin: 10px 0;
+    color: #111827;
+    text-align: center;
+}
+
+.cartzo-login-description {
+    margin-bottom: 25px;
+    color: #6b7280;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.cartzo-login-card form p {
+    margin-bottom: 18px;
+}
+
+.cartzo-login-card label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 700;
+    color: #374151;
+}
+
+.cartzo-login-card input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+}
+
+.cartzo-login-card input:focus {
+    outline: 2px solid #99f6e4;
+    border-color: #0f766e;
+}
+
+.cartzo-login-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0f766e, #0d9488);
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cartzo-login-button:hover {
+    opacity: .92;
+}
+
+.cartzo-login-message {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 9px;
+    background: #f0fdfa;
+    color: #115e59;
+    overflow-wrap: anywhere;
+}
+
+.cartzo-login-links {
+    margin-top: 22px;
+    text-align: center;
+    line-height: 2;
+}
+
+.cartzo-login-links a {
+    color: #0f766e;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+@media (max-width: 480px) {
+    .cartzo-login-card {
+        padding: 25px 20px;
+    }
+}
+</style>
+
+<section class="cartzo-login-page">
+    <div class="cartzo-login-card">
+
+        <div class="cartzo-login-brand">Cartzo</div>
+
+        <h1>Welcome Back!</h1>
+
+        <p class="cartzo-login-description">
+            Sign in securely with your username, password
+            and email verification code.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="cartzo-login-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="cartzo-login-button">
+                Continue to OTP Verification →
+            </button>
+        </form>
+
+        <div class="cartzo-login-links">
+            New to Cartzo?
+            <a href="/register/">Create an account</a>
+            <br>
+            <a href="/">Back to shopping</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+<div style="text-align:center;margin:16px 0;">
+    <a href="{% url 'password_reset' %}">Forgot your password?</a>
+</div>

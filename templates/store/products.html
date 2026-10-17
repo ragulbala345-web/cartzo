@@ -1,0 +1,546 @@
+﻿{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Shop Products | Cartzo{% endblock %}
+
+{% block content %}
+
+<style>
+    .cartzo-products-page {
+        max-width: 1450px;
+        margin: 0 auto;
+        padding: 35px 22px 60px;
+    }
+
+    .cartzo-products-heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .cartzo-products-heading h1 {
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .cartzo-products-heading p {
+        color: #777;
+        font-size: 16px;
+    }
+
+    .cartzo-filter-panel {
+        background: #ffffff;
+        border: 1px solid #e8e8e8;
+        border-radius: 18px;
+        padding: 24px;
+        margin-bottom: 32px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.05);
+    }
+
+    .cartzo-filter-panel h2 {
+        font-size: 21px;
+        margin: 0 0 20px;
+        font-weight: 750;
+    }
+
+    .cartzo-filter-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        align-items: end;
+    }
+
+    .cartzo-filter-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .cartzo-filter-field label {
+        font-size: 14px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .cartzo-filter-field input,
+    .cartzo-filter-field select {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 45px;
+        padding: 10px 12px;
+        border: 1px solid #d8d8d8;
+        border-radius: 9px;
+        background: #fff;
+        color: #222;
+        font-size: 14px;
+    }
+
+    .cartzo-filter-field input:focus,
+    .cartzo-filter-field select:focus {
+        outline: 2px solid #c7d2fe;
+        border-color: #4f46e5;
+    }
+
+    .cartzo-filter-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+    }
+
+    .cartzo-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 43px;
+        padding: 10px 19px;
+        border: 0;
+        border-radius: 9px;
+        background: #4f46e5;
+        color: white !important;
+        text-decoration: none !important;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: transform .2s, background .2s;
+    }
+
+    .cartzo-button:hover {
+        background: #3730a3;
+        transform: translateY(-2px);
+    }
+
+    .cartzo-button-secondary {
+        background: #f0f0f5;
+        color: #333 !important;
+    }
+
+    .cartzo-button-secondary:hover {
+        background: #e1e1ea;
+    }
+
+    .cartzo-filter-error {
+        background: #fff1f2;
+        color: #be123c;
+        border: 1px solid #fecdd3;
+        border-radius: 9px;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+    }
+
+    .cartzo-results-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+    }
+
+    .cartzo-results-heading h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .cartzo-results-count {
+        color: #777;
+        font-size: 14px;
+    }
+
+    .cartzo-product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .cartzo-product-card {
+        background: #fff;
+        border: 1px solid #ededed;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform .25s, box-shadow .25s;
+    }
+
+    .cartzo-product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, .09);
+    }
+
+    .cartzo-product-image-wrap {
+        height: 235px;
+        background: #f7f7f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .cartzo-product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 12px;
+        box-sizing: border-box;
+        transition: transform .3s;
+    }
+
+    .cartzo-product-card:hover .cartzo-product-image {
+        transform: scale(1.04);
+    }
+
+    .cartzo-product-info {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .cartzo-product-category {
+        display: inline-block;
+        color: #4f46e5;
+        background: #eef2ff;
+        border-radius: 30px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-weight: 750;
+        margin-bottom: 10px;
+        width: fit-content;
+    }
+
+    .cartzo-product-name {
+        color: #222;
+        font-size: 17px;
+        font-weight: 750;
+        line-height: 1.4;
+        margin: 0 0 10px;
+    }
+
+    .cartzo-product-price {
+        color: #111;
+        font-size: 23px;
+        font-weight: 800;
+        margin: 0 0 15px;
+    }
+
+    .cartzo-product-stock {
+        color: #16803d;
+        font-size: 12px;
+        margin-bottom: 14px;
+    }
+
+    .cartzo-product-out-of-stock {
+        color: #c62828;
+    }
+
+    .cartzo-product-actions {
+        display: grid;
+        gap: 9px;
+        margin-top: auto;
+    }
+
+    .cartzo-product-actions form {
+        margin: 0;
+    }
+
+    .cartzo-product-actions .cartzo-button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .cartzo-empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 65px 20px;
+        background: #fafafa;
+        border: 1px dashed #d4d4d8;
+        border-radius: 16px;
+    }
+
+    .cartzo-empty-state .empty-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+    }
+
+    .cartzo-empty-state h3 {
+        font-size: 23px;
+        margin: 0 0 10px;
+    }
+
+    .cartzo-empty-state p {
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 1100px) {
+        .cartzo-product-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .cartzo-filter-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 700px) {
+        .cartzo-products-page {
+            padding: 25px 14px 40px;
+        }
+
+        .cartzo-product-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .cartzo-product-image-wrap {
+            height: 160px;
+        }
+
+        .cartzo-product-info {
+            padding: 12px;
+        }
+
+        .cartzo-product-name {
+            font-size: 14px;
+        }
+
+        .cartzo-product-price {
+            font-size: 19px;
+        }
+
+        .cartzo-filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cartzo-filter-panel {
+            padding: 17px;
+        }
+
+        .cartzo-button {
+            padding: 10px 12px;
+        }
+    }
+</style>
+
+<div class="cartzo-products-page">
+
+    <div class="cartzo-products-heading">
+        <h1>Discover Your Next Favourite ✨</h1>
+        <p>Explore great products and find the right choice for you.</p>
+    </div>
+
+    <section class="cartzo-filter-panel">
+        <h2>🔎 Search &amp; Filter Products</h2>
+
+        {% if filter_error %}
+            <div class="cartzo-filter-error">
+                {{ filter_error }}
+            </div>
+        {% endif %}
+
+        <form method="get" action="{% url 'store:products' %}">
+
+            <div class="cartzo-filter-grid">
+
+                <div class="cartzo-filter-field">
+                    <label for="product-search">Search products</label>
+                    <input
+                        type="search"
+                        id="product-search"
+                        name="q"
+                        placeholder="Search phones, shoes, watches..."
+                        value="{{ search }}"
+                    >
+                </div>
+
+                <div class="cartzo-filter-field">
+                    <label for="product-category">Category</label>
+                    <select id="product-category" name="category">
+                        <option value="">All Categories</option>
+
+                        {% for category in categories %}
+                            <option
+                                value="{{ category }}"
+                                {% if selected_category == category %}selected{% endif %}
+                            >
+                                {{ category }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="cartzo-filter-field">
+                    <label for="product-sort">Sort products</label>
+                    <select id="product-sort" name="sort">
+                        <option value="newest" {% if selected_sort == "newest" or not selected_sort %}selected{% endif %}>
+                            Newest First
+                        </option>
+                        <option value="price_low" {% if selected_sort == "price_low" %}selected{% endif %}>
+                            Price: Low to High
+                        </option>
+                        <option value="price_high" {% if selected_sort == "price_high" %}selected{% endif %}>
+                            Price: High to Low
+                        </option>
+                        <option value="name" {% if selected_sort == "name" %}selected{% endif %}>
+                            Name: A to Z
+                        </option>
+                    </select>
+                </div>
+
+                <div class="cartzo-filter-field">
+                    <label for="min-price">Minimum Price (₹)</label>
+                    <input
+                        type="number"
+                        id="min-price"
+                        name="min_price"
+                        min="0"
+                        step="0.01"
+                        placeholder="e.g. 500"
+                        value="{{ min_price }}"
+                    >
+                </div>
+
+                <div class="cartzo-filter-field">
+                    <label for="max-price">Maximum Price (₹)</label>
+                    <input
+                        type="number"
+                        id="max-price"
+                        name="max_price"
+                        min="0"
+                        step="0.01"
+                        placeholder="e.g. 5000"
+                        value="{{ max_price }}"
+                    >
+                </div>
+
+            </div>
+
+            <div class="cartzo-filter-actions">
+                <button type="submit" class="cartzo-button">
+                    🔍 Apply Filters
+                </button>
+
+                <a href="{% url 'store:products' %}" class="cartzo-button cartzo-button-secondary">
+                    ↻ Clear Filters
+                </a>
+            </div>
+
+        </form>
+    </section>
+
+    <div class="cartzo-results-heading">
+        <h2>Our Products</h2>
+        <span class="cartzo-results-count">
+            {{ products|length }} product{{ products|length|pluralize }} found
+        </span>
+    </div>
+
+    <div class="cartzo-product-grid">
+
+        {% for product in products %}
+
+            <article class="cartzo-product-card">
+
+                <a
+                    href="{% url 'store:product_detail' product.slug %}"
+                    class="cartzo-product-image-wrap"
+                    style="text-decoration:none;"
+                >
+                    {% if product.static_image %}
+                        <img
+                            src="{% static 'images/' %}{{ product.static_image }}"
+                            alt="{{ product.name }}"
+                            class="cartzo-product-image"
+                            loading="lazy"
+                        >
+                    {% elif product.image %}
+                        <img
+                            src="{{ product.image.url }}"
+                            alt="{{ product.name }}"
+                            class="cartzo-product-image"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <img
+                            src="{% static 'images/cartzo-product-01.jpg' %}"
+                            alt="{{ product.name }}"
+                            class="cartzo-product-image"
+                            loading="lazy"
+                        >
+                    {% endif %}
+                </a>
+
+                <div class="cartzo-product-info">
+
+                    <span class="cartzo-product-category">
+                        {{ product.category }}
+                    </span>
+
+                    <h3 class="cartzo-product-name">
+                        {{ product.name }}
+                    </h3>
+
+                    <p class="cartzo-product-price">
+                        ₹{{ product.price|floatformat:2 }}
+                    </p>
+
+                    {% if product.stock > 0 %}
+                        <span class="cartzo-product-stock">
+                            ✓ In stock
+                        </span>
+                    {% else %}
+                        <span class="cartzo-product-stock cartzo-product-out-of-stock">
+                            Currently unavailable
+                        </span>
+                    {% endif %}
+
+                    <div class="cartzo-product-actions">
+
+                        <a
+                            href="{% url 'store:product_detail' product.slug %}"
+                            class="cartzo-button"
+                        >
+                            View Product
+                        </a>
+
+                        {% if product.stock > 0 %}
+                            <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="cartzo-button">
+                                    🛒 Add to Cart
+                                </button>
+                            </form>
+                        {% else %}
+                            <button type="button" class="cartzo-button" disabled style="opacity:.55;cursor:not-allowed;">
+                                Out of Stock
+                            </button>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="cartzo-empty-state">
+                <div class="empty-icon">🛍️</div>
+                <h3>No products found</h3>
+                <p>Try changing your search, category, or price range.</p>
+                <a href="{% url 'store:products' %}" class="cartzo-button">
+                    View All Products
+                </a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

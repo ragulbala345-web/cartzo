@@ -1,0 +1,150 @@
+﻿.cartzo-ai-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 30px;
+    overflow: hidden;
+    border-radius: 26px;
+    background: linear-gradient(125deg, #312e81, #6d28d9 58%, #9333ea);
+    box-shadow: 0 18px 45px rgba(109, 40, 217, .22);
+    color: white;
+}
+
+.cartzo-ai-search * {
+    box-sizing: border-box;
+}
+
+.cartzo-ai-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.cartzo-ai-label {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 7px 13px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.cartzo-ai-search h2 {
+    color: white;
+    margin: 14px 0 8px;
+    font-size: clamp(25px, 4vw, 36px);
+    line-height: 1.2;
+}
+
+.cartzo-ai-search p {
+    color: #ede9fe;
+    margin: 0 0 20px;
+}
+
+.cartzo-ai-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 720px;
+    padding: 7px;
+    border-radius: 17px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.cartzo-ai-form input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    color: #312e81;
+}
+
+.cartzo-ai-form button {
+    flex-shrink: 0;
+    margin: 0;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    color: white;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.cartzo-ai-form button:hover {
+    background: linear-gradient(135deg, #6d28d9, #4338ca);
+    transform: translateY(-1px);
+}
+
+.cartzo-ai-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.cartzo-ai-examples span {
+    padding: 6px 11px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.1);
+    color: white;
+    font-size: 12px;
+}
+
+.cartzo-ai-decoration {
+    flex: 0 0 130px;
+    text-align: center;
+    font-size: 100px;
+    filter: drop-shadow(0 14px 14px rgba(0,0,0,.2));
+    animation: cartzoAiFloat 3s ease-in-out infinite;
+}
+
+@keyframes cartzoAiFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@media(max-width:650px) {
+    .cartzo-ai-search {
+        padding: 23px 17px;
+    }
+
+    .cartzo-ai-decoration {
+        display: none;
+    }
+
+    .cartzo-ai-form {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+    }
+
+    .cartzo-ai-form input {
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+    }
+
+    .cartzo-ai-form button {
+        width: 100%;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .cartzo-ai-decoration {
+        animation: none;
+    }
+}

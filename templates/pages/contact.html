@@ -1,0 +1,43 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Contact Us | Cartzo{% endblock %}
+
+{% block content %}
+
+<section class="section container">
+
+    <div class="auth-card contact-card">
+        <span class="eyebrow">WE'RE HERE TO HELP</span>
+
+        <h1>Contact Us</h1>
+
+        <p>Send us your question or feedback.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% for error in field.errors %}
+                    <small class="field-error">{{ error }}</small>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary btn-full">
+                Send Message
+            </button>
+        </form>
+    </div>
+
+</section>
+
+{% endblock %}
+
+

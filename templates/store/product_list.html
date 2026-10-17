@@ -1,0 +1,81 @@
+﻿{% load static %}
+{% extends "base.html" %}
+
+{% block title %}All Products | Cartzo{% endblock %}
+
+{% block content %}
+
+<section class="page-banner">
+    <div class="container">
+        <h1>Our Products</h1>
+        <p>Explore the Cartzo collection.</p>
+    </div>
+</section>
+
+<section class="section container">
+
+    <form method="get" class="filter-form">
+        <input type="search"
+               name="q"
+               value="{{ request.GET.q }}"
+               placeholder="Search products...">
+
+        <select name="category">
+            <option value="">All Categories</option>
+
+            {% for category in categories %}
+            <option value="{{ category.slug }}"
+                {% if request.GET.category == category.slug %}
+                    selected
+                {% endif %}>
+                {{ category.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <article class="product-card">
+
+            <a href="/product/{{ product.id }}/">
+                {% if product.image %}
+                    <img src="{% static 'images/' %}{{ product.static_image }}"
+                         alt="{{ product.name }}"
+                         class="product-image">
+                {% else %}
+                    <div class="product-placeholder">ðŸ›ï¸</div>
+                {% endif %}
+            </a>
+
+            <div class="product-info">
+                <h3>
+                    <a href="/product/{{ product.id }}/">
+                        {{ product.name }}
+                    </a>
+                </h3>
+
+                <p class="product-price">&#8377;{{ product.price|floatformat:0 }}</p>
+
+                <a href="/product/{{ product.id }}/"
+                   class="btn btn-primary btn-small">
+                    View Details
+                </a>
+            </div>
+
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <h2>No products found</h2>
+            <p>Try another search or check back later.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}
+
+
