@@ -32,7 +32,7 @@
         {% if product.static_image %}
             <a href="{% url 'store:product_detail' product.slug %}">
                 <img
-                    src="{% static 'images/' %}{{ product.static_image }}"
+                    src="{% static '' %}{{ product.static_image }}"
                     alt="{{ product.name }}"
                     class="product-image"
                     loading="lazy"

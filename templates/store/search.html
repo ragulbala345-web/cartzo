@@ -25,7 +25,7 @@
         {% for product in products %}
         <article class="product-card">
             {% if product.image %}
-                <img src="{% static 'images/' %}{{ product.static_image }}"
+                <img src="{% static '' %}{{ product.static_image }}"
                      alt="{{ product.name }}"
                      class="product-image">
             {% else %}

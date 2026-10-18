@@ -17,7 +17,7 @@
 <div class="card">
     {% if product.image %}
         <img
-            src="{% static 'images/' %}{{ product.static_image }}"
+            src="{% static '' %}{{ product.static_image }}"
             alt="{{ product.name }}"
             style="max-width:100%;width:350px;object-fit:contain"
         >

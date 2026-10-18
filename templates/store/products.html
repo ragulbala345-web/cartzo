@@ -451,7 +451,7 @@
                 >
                     {% if product.static_image %}
                         <img
-                            src="{% static 'images/' %}{{ product.static_image }}"
+                            src="{% static '' %}{{ product.static_image }}"
                             alt="{{ product.name }}"
                             class="cartzo-product-image"
                             loading="lazy"

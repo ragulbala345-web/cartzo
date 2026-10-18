@@ -20,7 +20,7 @@
 
             <a href="/product/{{ product.id }}/">
                 {% if product.image %}
-                    <img src="{% static 'images/' %}{{ product.static_image }}"
+                    <img src="{% static '' %}{{ product.static_image }}"
                          alt="{{ product.name }}"
                          class="product-image">
                 {% else %}
