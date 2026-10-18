@@ -14,11 +14,12 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
     "localhost",
+    "127.0.0.1",
+    "cartzo-vmiy.vercel.app",
 ]
 
-# Installed applications
+
 INSTALLED_APPS = [
     # Django built-in apps
     "django.contrib.admin",
