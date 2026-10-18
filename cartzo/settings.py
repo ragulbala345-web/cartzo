@@ -21,6 +21,7 @@ ALLOWED_HOSTS = [
 
 
 INSTALLED_APPS = [
+    "cloudinary_storage",
     # Django built-in apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -194,3 +195,22 @@ SOCIALACCOUNT_PROVIDERS = {
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+
+# Cloudinary configuration for uploaded product images.
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    "PREFIX": "",
+    "MEDIA_TAG": "cartzo",
+}
+
+# Store uploaded media files on Cloudinary.
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
