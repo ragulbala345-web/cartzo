@@ -1,0 +1,160 @@
+﻿/* CARTZO: Uniform ecommerce product images and cards */
+
+:root {
+    --cartzo-purple: #6d28d9;
+    --cartzo-border: #eee8f7;
+    --cartzo-shadow: 0 5px 18px rgba(40, 25, 75, 0.08);
+    --cartzo-shadow-hover: 0 14px 30px rgba(40, 25, 75, 0.15);
+}
+
+/* Consistent product grid */
+.products-grid,
+.product-grid,
+.products-container,
+.product-list,
+.product-listing,
+.wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Equal-height product cards */
+.product-card,
+.product-item,
+.product,
+.products-grid .card,
+.product-grid .card,
+.wishlist-grid .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--cartzo-border);
+    border-radius: 14px;
+    box-shadow: var(--cartzo-shadow);
+    transition: transform .28s ease, box-shadow .28s ease;
+}
+
+/* FIX: every product image gets the same display area */
+.product-card img,
+.product-item img,
+.product img,
+.products-grid .card img,
+.product-grid .card img,
+.wishlist-grid .card img {
+    display: block;
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 220px;
+    max-height: 220px;
+    box-sizing: border-box;
+    object-fit: contain !important;
+    object-position: center;
+    padding: 12px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    transform: none;
+    transition: transform .3s ease;
+}
+
+/* Keep product names and prices aligned */
+.product-card h2,
+.product-card h3,
+.product-item h2,
+.product-item h3,
+.product h2,
+.product h3 {
+    line-height: 1.4;
+    min-height: 2.8em;
+    overflow-wrap: anywhere;
+}
+
+.product-card .price,
+.product-item .price,
+.product .price {
+    font-weight: 700;
+    color: #222;
+    font-size: 1.1rem;
+}
+
+/* Keep buttons near the bottom of cards */
+.product-card .button,
+.product-item .button,
+.product .button {
+    margin-top: auto;
+}
+
+/* Premium 3D hover effect */
+@media (hover: hover) and (pointer: fine) {
+    .product-card:hover,
+    .product-item:hover,
+    .product:hover,
+    .products-grid .card:hover,
+    .product-grid .card:hover,
+    .wishlist-grid .card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--cartzo-shadow-hover);
+    }
+
+    .product-card:hover img,
+    .product-item:hover img,
+    .product:hover img,
+    .products-grid .card:hover img,
+    .product-grid .card:hover img,
+    .wishlist-grid .card:hover img {
+        transform: scale(1.06);
+    }
+}
+
+/* Responsive layout */
+@media (max-width: 1000px) {
+    .products-grid,
+    .product-grid,
+    .products-container,
+    .product-list,
+    .product-listing,
+    .wishlist-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .products-grid,
+    .product-grid,
+    .products-container,
+    .product-list,
+    .product-listing,
+    .wishlist-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-card img,
+    .product-item img,
+    .product img,
+    .products-grid .card img,
+    .product-grid .card img,
+    .wishlist-grid .card img {
+        height: 175px !important;
+        min-height: 175px;
+        max-height: 175px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .products-grid,
+    .product-grid,
+    .products-container,
+    .product-list,
+    .product-listing,
+    .wishlist-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

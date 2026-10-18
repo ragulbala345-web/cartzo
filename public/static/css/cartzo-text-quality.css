@@ -1,0 +1,102 @@
+﻿/* CARTZO: CLEAR TEXT AND ORIGINAL ORANGE THEME */
+
+html, body {
+    color: #222222 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+/* Navigation: Home, About, Products, Login */
+nav a,
+.navbar a,
+.navbar-nav a,
+.nav-link,
+header a {
+    color: #222222 !important;
+    -webkit-text-fill-color: #222222 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+
+/* Cartzo logo */
+.navbar-brand {
+    color: #ff6b00 !important;
+    -webkit-text-fill-color: #ff6b00 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+    font-weight: 800 !important;
+}
+
+/* Main headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #171717 !important;
+    -webkit-text-fill-color: #171717 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+/* Regular text */
+p, li, label, span {
+    text-shadow: none !important;
+}
+
+/* Product cards */
+.card, .product-card, .product-item {
+    background-color: #ffffff !important;
+    color: #222222 !important;
+}
+
+.card h3, .card h4,
+.product-card h3, .product-card h4,
+.product-title {
+    color: #171717 !important;
+    -webkit-text-fill-color: #171717 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+/* Prices */
+.price, .product-price {
+    color: #e65f00 !important;
+    -webkit-text-fill-color: #e65f00 !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+    font-weight: 800 !important;
+}
+
+/* Buttons */
+.btn-primary,
+button[type="submit"],
+input[type="submit"] {
+    background-color: #ff6b00 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+/* Form text */
+input, select, textarea {
+    color: #222222 !important;
+    -webkit-text-fill-color: #222222 !important;
+    text-shadow: none !important;
+}
+
+/* Muted text */
+.text-muted, small {
+    color: #555555 !important;
+    opacity: 1 !important;
+}
+
+/* Footer */
+footer {
+    background-color: #171717 !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+footer a, footer p, footer li {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    text-shadow: none !important;
+}

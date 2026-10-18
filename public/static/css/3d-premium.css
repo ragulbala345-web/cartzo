@@ -1,0 +1,289 @@
+﻿/* =========================================================
+   CARTZO — PREMIUM 3D DESIGN
+   Adds 3D hover effects without replacing existing styles.
+   ========================================================= */
+
+:root {
+    --cz-primary: #6d28d9;
+    --cz-primary-light: #8b5cf6;
+    --cz-accent: #ec4899;
+    --cz-text: #1e1b2e;
+    --cz-muted: #716b80;
+    --cz-surface: rgba(255, 255, 255, 0.92);
+    --cz-border: rgba(124, 92, 190, 0.16);
+    --cz-shadow: 0 12px 32px rgba(55, 35, 95, 0.10);
+    --cz-shadow-hover: 0 24px 48px rgba(74, 43, 135, 0.20);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--cz-text);
+    background:
+        radial-gradient(ellipse at 5% 5%, rgba(167, 139, 250, .15), transparent 32%),
+        radial-gradient(ellipse at 95% 20%, rgba(244, 114, 182, .11), transparent 30%),
+        linear-gradient(145deg, #faf8ff 0%, #f7f5fc 50%, #fff8fb 100%);
+    background-attachment: fixed;
+}
+
+/* Main page content */
+.main-content {
+    min-height: 65vh;
+    animation: cz-page-enter .55s ease both;
+}
+
+@keyframes cz-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation */
+nav,
+.navbar,
+.navigation,
+header {
+    transition: background .3s ease, box-shadow .3s ease;
+}
+
+nav,
+.navbar,
+.navigation {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+nav a,
+.navbar a,
+.navigation a {
+    transition: color .25s ease, transform .25s ease;
+}
+
+nav a:hover,
+.navbar a:hover,
+.navigation a:hover {
+    color: var(--cz-primary-light);
+}
+
+/* General product and content cards */
+.card,
+.product-card,
+.product-item,
+.product,
+.wishlist-item,
+.feature-card,
+.category-card,
+article.card {
+    position: relative;
+    isolation: isolate;
+    border: 1px solid var(--cz-border);
+    border-radius: 20px;
+    background: var(--cz-surface);
+    box-shadow: var(--cz-shadow);
+    transition:
+        transform .35s cubic-bezier(.2, .8, .2, 1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+.card::before,
+.product-card::before,
+.product-item::before,
+.product::before,
+.feature-card::before,
+.category-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .65),
+        transparent 42%,
+        rgba(139, 92, 246, .045)
+    );
+    opacity: .8;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover,
+    .product-card:hover,
+    .product-item:hover,
+    .product:hover,
+    .wishlist-item:hover,
+    .feature-card:hover,
+    .category-card:hover,
+    article.card:hover {
+        transform: perspective(1000px) translateY(-9px) rotateX(1.2deg);
+        box-shadow: var(--cz-shadow-hover);
+        border-color: rgba(139, 92, 246, .40);
+    }
+}
+
+/* Product images */
+.card img,
+.product-card img,
+.product-item img,
+.product img,
+.wishlist-item img,
+.category-card img {
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1), filter .4s ease;
+    transform: translateZ(12px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover img,
+    .product-card:hover img,
+    .product-item:hover img,
+    .product:hover img,
+    .wishlist-item:hover img,
+    .category-card:hover img {
+        transform: translateZ(24px) scale(1.055);
+        filter: saturate(1.08);
+    }
+}
+
+/* Buttons */
+button,
+.button,
+.btn,
+input[type="submit"],
+a.button,
+a.btn {
+    border: 0;
+    border-radius: 12px;
+    background-image: linear-gradient(135deg, var(--cz-primary), var(--cz-primary-light));
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 5px 0 #48209b, 0 9px 20px rgba(109, 40, 217, .19);
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        filter .2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    button:hover,
+    .button:hover,
+    .btn:hover,
+    input[type="submit"]:hover,
+    a.button:hover,
+    a.btn:hover {
+        color: #fff;
+        filter: brightness(1.08);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 0 #48209b, 0 15px 26px rgba(109, 40, 217, .25);
+    }
+}
+
+button:active,
+.button:active,
+.btn:active,
+input[type="submit"]:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #48209b;
+}
+
+/* Form controls */
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+select,
+textarea {
+    max-width: 100%;
+    border: 1px solid #ded6ef;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .92);
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--cz-primary-light);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, .13);
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+    letter-spacing: -.035em;
+}
+
+h1 {
+    text-wrap: balance;
+}
+
+a {
+    transition: color .2s ease;
+}
+
+/* Message notifications */
+.messages,
+.message {
+    border-radius: 14px;
+}
+
+.message {
+    margin: 12px 0;
+    padding: 14px 18px;
+    border: 1px solid var(--cz-border);
+    box-shadow: 0 5px 18px rgba(55, 35, 95, .07);
+}
+
+/* Product detail layout */
+.product-detail,
+.product-detail-container {
+    gap: 28px;
+}
+
+.product-detail img,
+.product-detail-container img {
+    border-radius: 18px;
+    transition: transform .4s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .product-detail img:hover,
+    .product-detail-container img:hover {
+        transform: scale(1.035);
+    }
+}
+
+/* Selection */
+::selection {
+    background: #ddd0ff;
+    color: #35116f;
+}
+
+/* Keyboard accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #a78bfa;
+    outline-offset: 3px;
+}
+
+/* Respect users who prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

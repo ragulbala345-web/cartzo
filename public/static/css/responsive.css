@@ -1,0 +1,90 @@
+
+
+/* Cartzo responsive product image sizing */
+.product-card img,
+.product-image,
+.product-card .product-img,
+.product-item img,
+.product-grid .product-image,
+.products-grid .product-image {
+    width: 100%;
+    height: 220px;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.product-grid,
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 24px;
+}
+
+@media (max-width: 600px) {
+    .product-card img,
+    .product-image,
+    .product-card .product-img,
+    .product-item img,
+    .product-grid .product-image,
+    .products-grid .product-image {
+        height: 170px;
+    }
+
+    .product-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+
+
+/* Cartzo responsive product image sizing */
+.product-card img,
+.product-image,
+.product-card .product-img,
+.product-item img,
+.product-grid .product-image,
+.products-grid .product-image {
+    width: 100%;
+    height: 220px;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.product-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.product-grid,
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 24px;
+}
+
+@media (max-width: 600px) {
+    .product-card img,
+    .product-image,
+    .product-card .product-img,
+    .product-item img,
+    .product-grid .product-image,
+    .products-grid .product-image {
+        height: 170px;
+    }
+
+    .product-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
