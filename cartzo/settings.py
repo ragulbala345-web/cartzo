@@ -87,11 +87,11 @@ ASGI_APPLICATION = "cartzo.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "cartzo_db",
-        "USER": "ragul",
+        "NAME": os.getenv("DB_NAME", "cartzo_db"),
+        "USER": os.getenv("DB_USER", "ragul"),
         "PASSWORD": os.getenv("DB_PASSWORD", "root"),
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+        "PORT": os.getenv("DB_PORT", "3306"),
         "OPTIONS": {
             "charset": "utf8mb4",
         },
