@@ -95,9 +95,11 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT", "3306"),
         "OPTIONS": {
             "charset": "utf8mb4",
+            "ssl": {},
         },
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
