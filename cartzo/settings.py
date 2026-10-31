@@ -21,7 +21,6 @@ ALLOWED_HOSTS = [
 
 
 INSTALLED_APPS = [
-    "cloudinary_storage",
     # Django built-in apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -165,12 +164,16 @@ REST_FRAMEWORK = {
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
 
-# Cartzo email OTP development configuration.
-# Development emails appear in the Django server terminal.
-if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    DEFAULT_FROM_EMAIL = "Cartzo <noreply@cartzo.local>"
-
+# Cartzo email OTP configuration.
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+EMAIL_TIMEOUT = 20
 
 
 # Google and Microsoft social authentication
@@ -216,3 +219,9 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+
+
+
+# Compatibility for django-cloudinary-storage 0.3.0
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"

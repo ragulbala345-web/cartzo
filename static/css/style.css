@@ -1083,3 +1083,74 @@ h3 {
         gap: 12px;
     }
 }
+
+/* CARTZO PRODUCT IMAGE SIZE AND ALIGNMENT FIX */
+
+.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+    align-items: stretch !important;
+}
+
+.product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    border-radius: 12px !important;
+}
+
+.product-image-wrapper {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background: #f8f8f8 !important;
+}
+
+.product-image,
+.product-image-wrapper img,
+.product-card img {
+    width: 100% !important;
+    height: 300px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+    margin: auto !important;
+    padding: 8px !important;
+}
+
+@media (max-width: 992px) {
+    .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+    .product-image,
+    .product-image-wrapper,
+    .product-image-wrapper img,
+    .product-card img {
+        height: 260px !important;
+        min-height: 260px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .product-image,
+    .product-image-wrapper,
+    .product-image-wrapper img,
+    .product-card img {
+        height: 220px !important;
+        min-height: 220px !important;
+    }
+}
+

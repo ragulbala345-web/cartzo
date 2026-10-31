@@ -39,3 +39,5 @@ Thumbs.db
 *.social-backup
 *.old
 *.orig
+.vercel
+.env*

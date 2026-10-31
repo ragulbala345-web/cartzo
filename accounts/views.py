@@ -304,7 +304,7 @@ def user_login(request):
 
             messages.success(
                 request,
-                "Your login OTP has been generated. Check the development server terminal for the test email."
+                "Your login verification code has been sent to your registered email address."
             )
 
             return redirect("accounts:verify_otp")
